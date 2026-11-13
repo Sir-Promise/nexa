@@ -1,26 +1,173 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root { --purple: #9b7aff; --blue: #536dff; --white: #ffffff; }
+
+* {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+html, body { margin: 0; min-height: 100%; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+body { font-family: Arial, Helvetica, sans-serif; background: #050716; color: white; }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+button, input { font: inherit; }
+
+button { cursor: pointer; }
+
+/* GALAXY BACKGROUND */
+
+.galaxy { min-height: 100vh; position: relative; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 50% 45%, #24205b 0%, transparent 48%), radial-gradient(ellipse at 15% 20%, #171b55 0%, transparent 40%), radial-gradient(ellipse at 85% 75%, #30164d 0%, transparent 40%), #050716; display: flex; flex-direction: column; }
+
+.stars { position: absolute; inset: 0; pointer-events: none; background-repeat: repeat; z-index: -1; }
+
+.stars-one { background-image: radial-gradient(2px 2px at 20px 30px, white, transparent), radial-gradient(1px 1px at 90px 80px, white, transparent), radial-gradient(2px 2px at 150px 150px, #a8baff, transparent); background-size: 260px 200px; animation: starDrift 100s linear infinite; }
+
+.stars-two { background-image: radial-gradient(1px 1px at 40px 60px, #bcaaff, transparent), radial-gradient(2px 2px at 180px 120px, white, transparent); background-size: 300px 250px; animation: starDrift 150s linear infinite reverse; }
+
+.nebula { position: absolute; width: 450px; height: 450px; border-radius: 50%; filter: blur(110px); z-index: -1; pointer-events: none; }
+
+.nebula-one { background: #4733d8; top: 15%; left: -200px; opacity: 0.25; }
+
+.nebula-two { background: #8c2dba; bottom: 0; right: -200px; opacity: 0.2; }
+
+.galaxy-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: #6655ff; filter: blur(180px); opacity: 0.12; top: 20%; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: -1; }
+
+@keyframes starDrift { from { transform: translateY(0); } to { transform: translateY(-200px); } }
+
+/* HEADER */
+
+.galaxy-header { width: 100%; padding: 28px 7%; display: flex; justify-content: space-between; align-items: center; }
+
+.nexa-logo { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: 4px; }
+
+.logo-icon { width: 38px; height: 38px; border: 1px solid #a88aff; border-radius: 12px; display: grid; place-items: center; background: #ffffff12; color: #c3b2ff; box-shadow: 0 0 25px #8c69ff55; }
+
+.header-caption { color: #aaa6cb; font-size: 10px; letter-spacing: 3px; }
+
+/* MAIN ENTRANCE */
+
+.entrance { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 15px 50px; text-align: center; }
+
+.welcome-text { max-width: 600px; }
+
+.welcome-tag { color: #bcaaff; font-size: 10px; letter-spacing: 4px; }
+
+.welcome-text h1 { font-size: clamp(32px, 5vw, 55px); line-height: 1.12; margin: 20px 0 15px; letter-spacing: -2px; }
+
+.welcome-text h1 span { background: linear-gradient(90deg, #b69aff, #72b9ff); background-clip: text; -webkit-background-clip: text; color: transparent; }
+
+.welcome-text p { color: #b5b3d0; font-size: 14px; line-height: 1.8; max-width: 450px; margin: 0 auto; }
+
+/* DOUBLE DOORS - IMPROVED VISIBILITY */
+
+.door-frame { width: min(460px, 85vw); height: 270px; margin: 40px auto 25px; position: relative; perspective: 1200px; border: 2px solid #a58aff; border-radius: 5px; overflow: visible; background: #080a24; box-shadow: 0 0 20px #8665ff88, 0 0 60px #8665ff55, inset 0 0 40px #8665ff66; }
+
+/* LIGHT BEHIND THE DOORS */
+
+.door-light { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at center, #ffffff 0%, #b9a0ff 12%, #6555dc 40%, #17163d 85%); opacity: 1; box-shadow: 0 0 80px #a58aff; }
+
+/* INDIVIDUAL DOORS */
+
+.door { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 2; background: linear-gradient( 135deg, #34366e, #11142f 50%, #292052 ); border: 2px solid #bba7ff; transition: transform 1.7s cubic-bezier(.7, 0, .2, 1); box-shadow: inset 0 0 30px #a68aff66, 0 0 15px #9c85ff55; backface-visibility: visible; }
+
+.door-left { left: 0; transform-origin: left center; }
+
+.door-right { right: 0; transform-origin: right center; }
+
+/* OPENING ANIMATION */
+
+.doors-open .door-left { transform: rotateY(-110deg); }
+
+.doors-open .door-right { transform: rotateY(110deg); }
+
+/* DOOR DECORATION */
+
+.door-design { position: absolute; inset: 13px; border: 2px solid #9d88ff; display: grid; place-items: center; }
+
+.door-inner { width: 70%; height: 75%; border: 2px solid #a68aff; border-radius: 100px 100px 8px 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 15px; color: #c9baff; box-shadow: 0 0 20px #a68aff55; }
+
+.door-inner span { font-size: 30px; }
+
+.door-inner small { font-size: 35px; font-weight: bold; color: #ffffff; }
+
+.door-line { width: 40px; height: 2px; background: #c3aaff; }
+
+.door-handle { position: absolute; top: 50%; width: 10px; height: 10px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 20px #bcaaff; }
+
+.door-left .door-handle { right: 10px; }
+
+.door-right .door-handle { left: 10px; }
+
+/* CENTRE BRANDING */
+
+.door-center { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: white; pointer-events: none; text-shadow: 0 0 15px #ffffff; }
+
+.door-center span { font-size: 10px; letter-spacing: 4px; }
+
+.door-center strong { font-size: 40px; letter-spacing: 8px; }
+
+.door-center small { font-size: 10px; letter-spacing: 3px; color: #ffffff; }
+
+/* BUTTONS */
+
+.entry-actions { width: min(380px, 90vw); display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+
+.primary-button { background: linear-gradient(100deg, #7756e9, #4c78e9); border: 1px solid #a58aff; border-radius: 9px; padding: 15px; color: white; font-weight: bold; box-shadow: 0 0 25px #7756e944; }
+
+.primary-button span { margin-left: 15px; }
+
+.primary-button:hover { filter: brightness(1.15); }
+
+.secondary-button { background: #ffffff0b; border: 1px solid #8d80c966; color: white; border-radius: 9px; padding: 14px; }
+
+.preview-button { background: transparent; border: none; color: #b9a7f6; padding: 10px; font-size: 12px; }
+
+/* AUTHENTICATION */
+
+.auth-panel { text-align: left; background: #11132de8; border: 1px solid #8172c966; border-radius: 15px; padding: 25px; backdrop-filter: blur(15px); box-shadow: 0 15px 60px #0007; }
+
+.auth-panel h2 { margin: 12px 0 7px; font-size: 25px; }
+
+.auth-panel p { color: #b5b3d0; font-size: 12px; margin-bottom: 22px; }
+
+.back-button { border: none; background: transparent; color: #b9a7f6; }
+
+.auth-panel form { display: flex; flex-direction: column; gap: 12px; }
+
+.auth-panel form > input { width: 100%; padding: 14px; background: #ffffff0b; border: 1px solid #8d80c966; border-radius: 8px; color: white; outline: none; }
+
+.auth-panel form > input:focus { border-color: #a58aff; }
+
+.auth-panel input::placeholder { color: #a5a2c2; }
+
+.terms { display: flex; align-items: center; gap: 8px; color: #c2bed9; font-size: 11px; }
+
+.auth-submit { width: 100%; margin-top: 5px; }
+
+.switch-auth { text-align: center; color: #b5b3d0; font-size: 11px; margin-top: 20px; }
+
+.switch-auth button { border: none; background: transparent; color: #b9a7ff; }
+
+.preview-message { background: #252052; border: 1px solid #9d88ff; padding: 12px; border-radius: 8px; font-size: 12px; }
+
+/* FOOTER */
+
+.galaxy-footer { display: flex; justify-content: space-between; gap: 15px; padding: 20px 7%; color: #777794; font-size: 9px; letter-spacing: 1px; border-top: 1px solid #ffffff12; }
+
+/* MOBILE */
+
+@media (max-width: 600px) { .galaxy-header { padding: 20px; }
+
+.header-caption { display: none; }
+
+.welcome-text h1 { font-size: 36px; }
+
+.welcome-text p { font-size: 12px; padding: 0 10px; }
+
+.door-frame { height: 210px; margin-top: 35px; }
+
+.galaxy-footer { flex-direction: column; align-items: center; text-align: center; font-size: 8px; } }
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
